@@ -16,9 +16,9 @@ node {
         }
     }
 
-//    stage('Deploy') {
-//        docker.image('maven:3.9.0-eclipse-temurin-11').inside('-v /root/.m2:/root/.m2') {
-//            sh './jenkins/scripts/deliver.sh'
-//        }
-//    }
+    stage('Deliver') {
+        docker.image('maven:3.9.0-eclipse-temurin-11').inside('-v /root/.m2:/root/.m2') {
+            sh './jenkins/scripts/deliver.sh'
+        }
+    }
 }
