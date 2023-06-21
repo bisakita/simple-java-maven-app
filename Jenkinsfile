@@ -1,7 +1,7 @@
 node {
     stage('Checkout local') {
         // Checkout your source code from version control system
-        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: '/home/dicoding/proyek1/simple-java-maven-app']])
+        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: '/home/test/simple-java-maven-app']])
     }
 
     stage('Build') {
@@ -16,9 +16,16 @@ node {
         }
     }
 
-    stage('Deliver') {
+    stage('Manual Approval'){
+	docker.image('maven:3.9.0-eclipse-temurin-11').inside('-v /root/.m2:/root/.m2') {
+		input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk lanjut)'
+	}
+    }
+
+    stage('Deploy') {
         docker.image('maven:3.9.0-eclipse-temurin-11').inside('-v /root/.m2:/root/.m2') {
             sh './jenkins/scripts/deliver.sh'
         }
+	sleep(60)
     }
 }
