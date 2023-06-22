@@ -1,7 +1,7 @@
 node {
     stage('Checkout local') {
-        // Checkout your source code from version control system
-        checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: '/home/test/simple-java-maven-app']])
+        // Checkout your source code from local source
+        checkout scm
     }
 
     stage('Build') {
